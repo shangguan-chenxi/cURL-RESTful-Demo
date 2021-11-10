@@ -10,8 +10,8 @@
         <script>
         function submitForm(){
         	var xhr = new XMLHttpRequest();
-        	xhr.open("POST", "./server.php", true);
-        	//xhr.open("POST", "http://xxx.xxx/server.php", true);
+        	//xhr.open("POST", "./server.php", true);
+        	xhr.open("POST", "http://192.168.1.31/test/cURL/html/server.php", true);
         	xhr.setRequestHeader("Content-type", "application/json");
         	
         	var user = document.getElementById("user").value;
@@ -32,8 +32,8 @@
         			if(xhr.getResponseHeader('Content-type') === 'application/json'){
         				var result = JSON.parse(xhr.responseText);
         				//根据返回结果判断
-        				if(result.code === -1){
-        					
+        				if(result.status_code === "200"){
+        					window.location.replace("./hello.php");
         				}else{
         				    //控制台输出
         					//console.log("状态码->" + result.status_code + " :: 状态信息->" + result.status_message);
@@ -46,7 +46,6 @@
         	}
         }
         </script>
-        
         
         用户：<input name="user" id="user"/><p></p>
         密码：<input name="pass" id="pass"/><p></p>
