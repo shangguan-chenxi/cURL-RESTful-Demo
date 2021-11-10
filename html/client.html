@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title></title>
+    </head>
+    
+    <body>
+        
+        <script>
+        function submitForm(){
+        	var xhr = new XMLHttpRequest();
+        	xhr.open("POST", "./server.php", true);
+        	//xhr.open("POST", "http://xxx.xxx/server.php", true);
+        	xhr.setRequestHeader("Content-type", "application/json");
+        	
+        	var user = document.getElementById("user").value;
+        	var pass = document.getElementById("pass").value;
+        	
+        	//console.log("user->" + user + " :: pass->" + pass);
+        	//var sendData = {"user":"admin", "pass":"admin888"};
+        	
+        	var sendData = {"user":user, "pass":pass};
+        	
+        	//将输入序列化成字符串
+        	xhr.send(JSON.stringify(sendData));
+        	
+        	//回调
+        	xhr.onreadystatechange = function(){
+        		if(xhr.readyState == 4){
+        			//根据响应内容格式处理相应结果
+        			if(xhr.getResponseHeader('Content-type') === 'application/json'){
+        				var result = JSON.parse(xhr.responseText);
+        				//根据返回结果判断
+        				if(result.code === -1){
+        					
+        				}else{
+        				    //控制台输出
+        					//console.log("状态码->" + result.status_code + " :: 状态信息->" + result.status_message);
+        					
+        					//更改HTML元素
+        					document.getElementById("prompt").innerHTML = result.status_message;
+        				}
+        			}
+        		}
+        	}
+        }
+        </script>
+        
+        
+        用户：<input name="user" id="user"/><p></p>
+        密码：<input name="pass" id="pass"/><p></p>
+        <li name="prompt" id="prompt"></li>
+        <input type="submit" value="验证" onclick="submitForm();"/><p></p>
+        
+    </body>
+</html>
