@@ -26,14 +26,10 @@ if($user == ""){
     if($user == $USER && $pass == $PASS){
         $response['status_code'] = '200';
         $response['status_message'] = "验证通过";
-        
-    $json_response = json_encode($response);
-    echo $json_response;
     }else{
         $response['status_code'] = '401';
         $response['status_message'] = "验证失败";
-        
+    }
     $json_response = json_encode($response);
     echo $json_response;
-    }
 }
